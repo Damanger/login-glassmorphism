@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./login.component.css">
+    <link rel="stylesheet" href="./materialize.css">
+    <link rel="stylesheet" href="./materialize.min.css">
+    <script src="./materialize.js"></script>
+    <script src="./materialize.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+</head>
+
+<body>
+    <section>
+        <div class="color"></div>
+        <div class="color"></div>
+        <div class="color"></div>
+        <div class="box">
+            <div class="square" style="--i:0;"></div>
+            <div class="square" style="--i:1;"></div>
+            <div class="square" style="--i:2;"></div>
+            <div class="square" style="--i:3;"></div>
+            <div class="square" style="--i:4;"></div>
+            <div class="container">
+                <div class="form">
+                    <h3>Computación UTM</h3>
+                    <form>
+                        <div class="inputBox">
+                            <input [(ngModel)]="profesor.correo" class="browser-default" type="email" name="email"
+                                id="email" placeholder="Correo" autocomplete="off">
+                        </div>
+                        <div class="inputBox">
+                            <input [(ngModel)]="profesor.password" class="browser-default" type="password"
+                                name="password" id="password" placeholder="Contraseña" autocomplete="off">
+                        </div>
+                        <div class="inputBox">
+                            <input type="submit" value="Login" (click)="verificarProfesor()">
+                        </div>
+                        <br>
+                        <p class="forget">Olvidé mi contraseña:<a
+                                class="waves-effect waves-light btn modal-trigger transparent" href="#Cont">Click
+                                Here</a></p>
+                        <p class="forget">No tengo cuenta:<a
+                                class="waves-effect waves-light btn modal-trigger transparent" href="#Reg">Sing up</a>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="three">
+        <canvas width="56.25rem" height="62.5rem" id="miCanvas"></canvas>
+    </div>
+
+    <div id="Cont" class="modal">
+        <div class="modal-content">
+            <div class="row" style="margin-bottom: 0px !important;">
+                <div class="col s12">
+                    <h4 class="center">Recuperar contraseña</h4>
+                    <br>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom: 0px !important;">
+                <div class="col s12">
+                    <p>Revise su correo electrónico, !NO OLVIDES REVISAR EL CORREO NO DESEADO¡</p>
+                </div>
+            </div>
+            <div style="border: .5px solid #78909c; padding: 10px;">
+                <div class="row">
+                    <div class="col s12">
+                        <label>Correo electrónico</label>
+                        <input required type="email" placeholder="correo">
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s6 center">
+                        <a (click)="cambiarContrasenya()"
+                            class=" modal-action modal-close waves-effect waves-green btn-flat">Enviar</a>
+
+                    </div>
+                    <div class="col s6 center">
+                        <a class=" modal-action modal-close waves-effect waves-red btn-flat">Cancelar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="Reg" class="modal">
+        <div class="contenido">
+            <h4>Profesores UTM</h4>
+            <div class="bodyLogin">
+                <div class="container">
+                    <div class="row">
+                        <div class="row loginContainer">
+                            <div class="col s12 m5 l5 offset-l0">
+                                <div class="row">
+                                    <div class="col s12 customInput">
+                                        <p>Nombre</p>
+                                        <input [(ngModel)]="profesor.nombre" class="browser-default" type="text"
+                                            name="nombre" id="nombre" placeholder="nombre" pattern="^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ]{2,}(\s[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ]{2,})?(\s[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ]{2,}){1,2}$" autocomplete="off" (keyup)="validarNombre()"
+                                            [ngClass]="{'is-invalid': !nombreValido, 'is-valid': nombreValido}">
+                                        <div class="nombre-container">
+                                            <div *ngIf="!nombreValido" class="nombre-requirements">
+                                                Ingrese un nombre válido.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col s12 customInput">
+                                        <p>Tipo</p>
+                                        <select [(ngModel)]="profesor.tipo" class="browser-default" name="tipo" id="tipo">
+                                            <option value="1">Jefe de Carrera</option>
+                                            <option value="2">Profesor</option>
+                                        </select>
+                                    </div>                                    
+                                    <div class="col s12 customInput">
+                                        <p>Correo</p>
+                                        <input [(ngModel)]="profesor.correo" class="browser-default" type="text"
+                                            name="correo" id="correo" placeholder="email" autocomplete="off" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+                                    </div>
+                                    <div class="col s12 customInput">
+                                        <p>Contraseña</p>
+                                        <input [(ngModel)]="profesor.password" class="browser-default" type="password"
+                                            name="contraseña" id="contraseña" placeholder="contraseña"
+                                            autocomplete="off" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@!$%#_])[A-Za-z\d@!$%#_]{8,}$"
+                                            autocomplete="off" (keyup)="validarPassword()"
+                                            [ngClass]="{'is-invalid': !passwordValido, 'is-valid': passwordValido}">
+                                        <div class="password-container">
+                                            <div *ngIf="!passwordValido" class="password-requirements">
+                                                La contraseña debe contener al menos 1 letra mayúscula,
+                                                1
+                                                letra minúscula, 1 número, 1 caracter especial "@, !, $,
+                                                %,
+                                                # o _" y debe ser un mínimo de 8 caracteres.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col s12 customInput">
+                                        <p>Edad</p>
+                                        <input [(ngModel)]="profesor.edad" class="browser-default" type="number"
+                                            name="edad" min="1" max="100" id="edad" placeholder="edad"
+                                            autocomplete="off">
+                                    </div>
+                                    <div class="col s12 customInput">
+                                        <p>Sexo</p>
+                                        <input [(ngModel)]="profesor.sexo" class="browser-default" type="text"
+                                            name="sexo" id="sexo" placeholder="sexo" autocomplete="off">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <button class="btn col l16 s12 m12 btnLogin " (click)="agregarProfesor()">
+                                        Registrarse
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
